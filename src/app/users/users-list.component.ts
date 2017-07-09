@@ -15,6 +15,7 @@ export class UsersListComponent implements OnInit {
     constructor(private _cfRepository: CfResositoryService) { }
 
     ngOnInit() {
+        console.log('in onit');
         this._cfRepository.getUsers().then(
             users => this.users = users,
             error => console.log(error));

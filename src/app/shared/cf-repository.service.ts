@@ -4,10 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { EntityManager, EntityQuery } from 'breeze-client';
+
 import { User } from '../model/user';
 
 @Injectable()
 export class CfResositoryService {
+
+    private _em: EntityManager = new EntityManager('http://api-competition-fisher.azurewebsites.net/breeze/CompetitionFisher');
 
     constructor() { }
 
@@ -15,10 +19,10 @@ export class CfResositoryService {
 
         let promise = new Promise<User[]>((resolve, reject) => {
 
-            let user1 = new User();
-            user1.firstName = 'Tim';
-            let users: User[] = [user1];
-            resolve(users);
+            let query = EntityQuery.from('Users');
+            this._em.executeQuery(query).then(
+                queryResult => resolve(<any>queryResult.results),
+                error => reject(error));
         });
 
         return promise;
