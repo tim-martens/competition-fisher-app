@@ -1,25 +1,21 @@
 import { EntityBase } from './EntityBase';
-import { ApplicationUser } from './ApplicationUser';
-import { Result } from './Result';
+import { User } from './User';
 
 /// <code-import> Place custom imports between <code-import> tags
 
 /// </code-import>
 
-export class User extends EntityBase {
+export class ApplicationUser extends EntityBase {
 
     /// <code> Place custom code between <code> tags
-
+    
     /// [Initializer]
-    static initializer(entity: User) { }
+    static initializer(entity: ApplicationUser) { }
     /// </code>
 
     // Generated code. Do not place code below this line.
     id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    applicationUser: ApplicationUser;
-    results: Result[];
+    faceBookId: string;
+    user: User;
 }
 

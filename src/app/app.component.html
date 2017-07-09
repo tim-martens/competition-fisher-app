@@ -1,3 +1,25 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+      <a class="navbar-brand" href="/">
+        <div>
+          <img alt="Brand" src="../images/logo.png" height="35px" style="margin:-5px"><span style="margin-left:20px">Competition Fisher</span>
+        </div>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a routerLink="/" routerLinkActive="active">Users</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div style="height:40px"></div>
 <div class="container">
-  <cf-users-list></cf-users-list>
+  <router-outlet></router-outlet>
 </div>

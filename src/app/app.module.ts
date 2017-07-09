@@ -10,17 +10,23 @@ import { AppComponent } from './app.component';
 
 import { CfResositoryService } from './shared/cf-repository.service';
 import { UsersListComponent } from './users/users-list.component';
+import { UsersListItemComponent } from './users/users-list-item/users-list-item.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersListComponent
+    UsersListComponent,
+    UsersListItemComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    BreezeBridgeAngularModule
+    BreezeBridgeAngularModule,
+    AppRoutingModule
   ],
   providers: [CfResositoryService],
   bootstrap: [AppComponent]
