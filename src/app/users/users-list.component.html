@@ -17,9 +17,8 @@
             <option value="email">Email</option>
         </select>
     <button class="btn btn-primary" routerLink="/user-add">Add user</button>
-    <button class="btn btn-danger" (click)="deleteUser()">Delete</button>
 </div>
 
 <div class="row " *ngFor="let user of users ">
-    <cf-users-list-item [user]="user " [selectedUser]="selectedUser " (click)="onSelect(user) "></cf-users-list-item>
+    <cf-users-list-item (deleted)="refresh()" [user]="user " [selectedUser]="selectedUser " (click)="onSelect(user) "></cf-users-list-item>
 </div>

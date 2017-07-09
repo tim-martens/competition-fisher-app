@@ -33,15 +33,41 @@ export class UsersListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._cfRepository.getUsers(1, this._pageSize).then(result => {
+        this.refresh(1);
+    }
+
+
+    pageUp() {
+
+        if (this.currentPage * this._pageSize >= this._totalRecords) {
+            return;
+        }
+
+        let newPage = this.currentPage + 1;
+        this.refresh(newPage);
+    }
+
+    pageDown() {
+        if (this.currentPage === 1) {
+            return;
+        }
+        let newPage = this.currentPage - 1;
+        this.refresh(newPage);
+    }
+
+    refresh(page: number = 1) {
+
+        this.searchInput = '';
+        this._cfRepository.getUsers(page, this._pageSize).then(result => {
             this.users = result.users;
             this._totalRecords = result.totalRecords;
             this.pageCount = Math.floor(this._totalRecords / this._pageSize);
             if (this.pageCount < (this._totalRecords / this._pageSize)) {
                 this.pageCount += 1;
             }
+            this.currentPage = page;
         },
-            error => console.log(error));
+            error => console.error(error));
     }
 
     save() {
@@ -49,10 +75,6 @@ export class UsersListComponent implements OnInit {
             this.ngOnInit();
         },
             error => console.error(error));
-    }
-
-    onSelect(user: User) {
-        this.selectedUser = user;
     }
 
     search(value) {
@@ -63,27 +85,8 @@ export class UsersListComponent implements OnInit {
             });
     }
 
-    pageUp() {
-
-        if (this.currentPage * this._pageSize >= this._totalRecords) {
-            return;
-        }
-
-        let newPage = this.currentPage + 1;
-        this._cfRepository.getUsers(newPage, this._pageSize).then(result => {
-            this.users = result.users;
-            this.currentPage = newPage;
-        }, error => console.error(error));
+    onSelect(user: User) {
+        this.selectedUser = user;
     }
 
-    pageDown() {
-        if (this.currentPage === 1) {
-            return;
-        }
-        let newPage = this.currentPage - 1;
-        this._cfRepository.getUsers(newPage, this._pageSize).then(result => {
-            this.users = result.users;
-            this.currentPage = newPage;
-        }, error => console.error(error));
-    }
 }

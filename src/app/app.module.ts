@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { BreezeBridgeAngularModule } from 'breeze-bridge-angular';
 import { NamingConvention } from 'breeze-client';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -27,6 +28,7 @@ import { InitGuard } from 'app/shared/init-guard';
     FormsModule,
     HttpModule,
     BreezeBridgeAngularModule,
+    ModalModule.forRoot(),
     AppRoutingModule
   ],
   providers: [

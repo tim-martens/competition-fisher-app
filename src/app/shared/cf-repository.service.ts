@@ -51,6 +51,14 @@ export class CfResositoryService {
         return this._em.createEntity(entityType, options);
     }
 
+    deleteUser(user: User): Promise<void> {
+        return this.getUserResults(user.id).then(results => {
+            results.slice().forEach(el => {
+                el.entityAspect.setDeleted();
+            });
+            user.entityAspect.setDeleted();
+        });
+    }
     getUsers(page: number, pageSize: number): Promise<any> {
 
         let promise = new Promise<any>((resolve, reject) => {
@@ -74,7 +82,7 @@ export class CfResositoryService {
         return promise;
     }
 
-    getUserResults(userId: number) {
+    getUserResults(userId: string) {
 
         let promise = new Promise<any>((resolve, reject) => {
 
