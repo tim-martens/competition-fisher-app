@@ -42,7 +42,7 @@ export class UserDetailComponent implements OnInit {
           this.errorMessage = error.message;
         });
     } else { // add user
-      // this.user = <User>this._cfRepository.createEntity('Customer');
+      this.user = <User>this._cfRepository.createEntity('User');
     }
   }
 

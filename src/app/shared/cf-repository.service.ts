@@ -18,9 +18,37 @@ export class CfResositoryService {
 
     private _em: EntityManager = new EntityManager('http://api-competition-fisher.azurewebsites.net/breeze/CompetitionFisher');
     private _usersCached = false;
+    private _initialized: boolean;
+
 
     constructor() {
         RegistrationHelper.register(this._em.metadataStore);
+    }
+
+
+    initialize() {
+        let promise = new Promise<boolean>((resolve, reject) => {
+
+            if (this._initialized) {
+                resolve(true);
+            } else {
+                this._initialized = true;
+                this._em.fetchMetadata().then(data => {
+                    resolve(true);
+                },
+                    error => console.error(error));
+            }
+        });
+
+        return promise;
+    }
+
+    createEntity(entityType: string): Entity {
+        let options: any = {};
+        if (entityType === 'User') {
+            options.id = core.getUuid();
+        }
+        return this._em.createEntity(entityType, options);
     }
 
     getUsers(page: number, pageSize: number): Promise<any> {
@@ -34,6 +62,7 @@ export class CfResositoryService {
                 .inlineCount();
 
             this._em.executeQuery(query).then(queryResult => {
+                this._usersCached = true;
                 resolve({
                     users: queryResult.results,
                     totalRecords: queryResult.inlineCount
@@ -66,7 +95,7 @@ export class CfResositoryService {
         let promise = new Promise((resolve, reject) => {
             let query = EntityQuery.from('Users').where('id', 'equals', id);
             let strategy: FetchStrategySymbol;
-            if (!this._em.metadataStore.isEmpty()) {
+            if (!this._usersCached) {
                 strategy = FetchStrategy.FromServer;
             } else {
                 strategy = FetchStrategy.FromLocalCache;

@@ -13,6 +13,7 @@ import { UsersListComponent } from './users/users-list.component';
 import { UsersListItemComponent } from './users/users-list-item/users-list-item.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { AppRoutingModule } from './app-routing.module';
+import { InitGuard } from 'app/shared/init-guard';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import { AppRoutingModule } from './app-routing.module';
     BreezeBridgeAngularModule,
     AppRoutingModule
   ],
-  providers: [CfResositoryService],
+  providers: [
+    CfResositoryService,
+    InitGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
